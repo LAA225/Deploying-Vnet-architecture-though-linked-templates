@@ -1,0 +1,107 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+            "description": "Location for all resources."
+            }
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "defaultValue": "vnet-test-eastus-001",
+            "metadata": {
+                "description": "Name of the Vnet to be made"
+            }
+        },
+        "vnetAddressPrefix":{
+            "type": "string",
+            "defaultValue": "10.0.0.0/16",
+            "metadata": {
+                "description": "address prefix of the vnet"
+            }
+        },
+        "subnet1Name": {
+            "type": "string",
+            "defaultValue":"snet-test-eastus-001",
+            "metadata": {
+                "description": "name of subnet 1"
+            }
+        },
+        "subnet2Name": {
+            "type": "string",
+            "defaultValue":"snet-test-eastus-002",
+            "metadata": {
+                "description": "name of subnet 2"
+            }
+        },
+        "subnet3Name": {
+            "type": "string",
+            "defaultValue":"snet-test-eastus-003",
+            "metadata": {
+                "description": "name of subnet 3"
+            }
+        },
+        "subnet1Prefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/24",
+            "metadata": {
+                "description": "prefix of subnet 1"
+            }
+        },
+        "subnet2Prefix": {
+            "type": "string",
+            "defaultValue": "10.0.1.0/24",
+            "metadata": {
+                "description": "prefix of subnet 2"
+            }
+        },
+        "subnet3Prefix": {
+            "type": "string",
+            "defaultValue": "10.0.2.0/24",
+            "metadata": {
+                "description": "prefix of subnet 3"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('virtualNetworkName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+            "addressSpace": {
+                "addressPrefixes": [
+                "[parameters('vnetaddressPrefix')]"
+                ]
+            },
+            "subnets": [
+                {
+                "name": "[parameters('subnet1Name')]",
+                "properties": {
+                    "addressPrefix": "[parameters('subnet1Prefix')]"
+                }
+                },
+                {
+                "name": "[parameters('subnet2Name')]",
+                "properties": {
+                    "addressPrefix": "[parameters('subnet2Prefix')]"
+                }
+                },
+                {
+                "name": "[parameters('subnet3Name')]",
+                "properties": {
+                    "addressPrefix": "[parameters('subnet3Prefix')]"
+                }
+                }
+            ]
+            }
+        }
+    ],
+    "outputs": {}
+}
